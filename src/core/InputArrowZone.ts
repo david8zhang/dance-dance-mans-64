@@ -22,7 +22,7 @@ export class InputArrowZone {
         },
         direction: dir,
       }
-      xPos += 75
+      xPos += 60
       this.arrows.push(new InputArrow(this.game, config))
     })
   }

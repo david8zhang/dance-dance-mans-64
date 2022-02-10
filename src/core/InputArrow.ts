@@ -19,7 +19,7 @@ export class InputArrow {
     this.direction = config.direction
 
     const { x, y } = config.position
-    this.sprite = this.game.physics.add.sprite(x, y, `arrow-${config.direction}`).setScale(0.5)
+    this.sprite = this.game.physics.add.sprite(x, y, `arrow-${config.direction}`)
     this.game.physics.world.enableBody(this.sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
   }
 }
