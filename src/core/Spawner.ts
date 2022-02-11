@@ -1,5 +1,5 @@
 import Game from '~/scenes/Game'
-import { Constants } from '~/util/Constants'
+import { Constants, Direction } from '~/util/Constants'
 import { Arrow } from './Arrow'
 
 export class Spawner {
@@ -10,6 +10,7 @@ export class Spawner {
     down: { x: 170, y: Constants.GAME_HEIGHT },
     right: { x: 230, y: Constants.GAME_HEIGHT },
   }
+  public arrows: Arrow[] = []
 
   constructor(game: Game) {
     this.game = game
@@ -21,10 +22,15 @@ export class Spawner {
           position: Spawner.SPAWN_POSITIONS[randDirection],
           direction: randDirection,
         })
-        newArrow.setVelocity(0, -50)
+        newArrow.setVelocity(0, -100)
+        this.arrows.push(newArrow)
       },
       delay: 1000,
       repeat: -1,
     })
+  }
+
+  getArrows() {
+    return this.arrows
   }
 }

@@ -18,6 +18,11 @@ export class Arrow {
     const { x, y } = config.position
     this.sprite = this.game.physics.add.sprite(x, y, `arrow-${config.direction}`)
     this.sprite.setTintFill(0xff0000)
+    this.sprite.body.setSize(0.1 * this.sprite.width, 0.1 * this.sprite.height)
+
+    const spriteBody = this.sprite.body as Phaser.Physics.Arcade.Body
+    spriteBody.setCollideWorldBounds(true)
+    spriteBody.onWorldBounds = true
   }
 
   setVelocity(x: number, y: number) {
