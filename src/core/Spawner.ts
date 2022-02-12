@@ -2,6 +2,11 @@ import Game from '~/scenes/Game'
 import { Constants, Direction } from '~/util/Constants'
 import { Arrow } from './Arrow'
 
+export interface SongConfig {
+  bpm: number
+  name: string
+}
+
 export class Spawner {
   private game: Game
   private static SPAWN_POSITIONS = {
@@ -11,23 +16,41 @@ export class Spawner {
     right: { x: 230, y: Constants.GAME_HEIGHT },
   }
   public arrows: Arrow[] = []
+  public arrowSpawnEvent!: Phaser.Time.TimerEvent
+  public currNoteIndex: number = 0
+  public songConfig: SongConfig = Constants.SONG_CONFIGS[2]
 
   constructor(game: Game) {
     this.game = game
+    this.setupSong(this.songConfig)
+  }
 
-    this.game.time.addEvent({
+  setSongConfig(songConfig: SongConfig) {
+    this.songConfig = songConfig
+  }
+
+  setupSong(songConfig: SongConfig) {
+    this.game.time.delayedCall(5700, () => {
+      this.game.sound.play(songConfig.name)
+    })
+    const arrowDelay = 60000 / songConfig.bpm
+    this.arrowSpawnEvent = this.game.time.addEvent({
+      delay: arrowDelay,
       callback: () => {
-        const randDirection = Constants.getRandomDirection()
-        const newArrow = new Arrow(this.game, {
-          position: Spawner.SPAWN_POSITIONS[randDirection],
-          direction: randDirection,
-        })
-        newArrow.setVelocity(0, -100)
-        this.arrows.push(newArrow)
+        this.spawnArrow()
       },
-      delay: 1000,
       repeat: -1,
     })
+  }
+
+  spawnArrow() {
+    const randDirection = Constants.getRandomDirection()
+    const arrow = new Arrow(this.game, {
+      direction: randDirection,
+      position: Spawner.SPAWN_POSITIONS[randDirection],
+    })
+    arrow.setVelocity(0, -100)
+    this.arrows.push(arrow)
   }
 
   getArrows() {
