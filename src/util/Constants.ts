@@ -1,3 +1,5 @@
+import { SONG_CONFIGS } from './SongConfigs'
+
 export enum Direction {
   UP = 'up',
   DOWN = 'down',
@@ -10,7 +12,14 @@ export class Constants {
   public static GAME_HEIGHT = 600
 
   public static ARROW_DIFF_DIST = 30
-  public static INITIAL_DELAY = 5700
+  public static INITIAL_DELAY = 5680
+
+  public static ARROW_SPAWN_POSITIONS = {
+    left: { x: 50, y: Constants.GAME_HEIGHT },
+    up: { x: 110, y: Constants.GAME_HEIGHT },
+    down: { x: 170, y: Constants.GAME_HEIGHT },
+    right: { x: 230, y: Constants.GAME_HEIGHT },
+  }
 
   public static getRandomDirection() {
     const randomNum = Math.floor(Math.random() * 4)
@@ -18,19 +27,8 @@ export class Constants {
     return directions[randomNum]
   }
 
-  public static SONG_CONFIGS = [
-    {
-      name: 'this-way-demo',
-      bpm: 152,
-    },
-    {
-      name: 'way-in-my-brain',
-      bpm: 134,
-    },
-    {
-      name: 'funny-thing',
-      bpm: 70,
-      initialDelayDiff: -60,
-    },
-  ]
+  public static getRandomSongConfig() {
+    const randomIndex = Math.floor(Math.random() * SONG_CONFIGS.length)
+    return SONG_CONFIGS[randomIndex]
+  }
 }

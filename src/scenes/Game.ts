@@ -12,10 +12,11 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
+    this.sound.pauseOnBlur = false
     this.setupWorldBounds()
+    this.spawner = new Spawner(this)
     this.cameras.main.setBackgroundColor('#3498db')
     this.inputArrowZone = new InputArrowZone(this)
-    this.spawner = new Spawner(this)
   }
 
   setupWorldBounds() {

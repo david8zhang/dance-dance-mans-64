@@ -10,33 +10,51 @@ export interface SongConfig {
 
 export class Spawner {
   private game: Game
-  private static SPAWN_POSITIONS = {
-    left: { x: 50, y: Constants.GAME_HEIGHT },
-    up: { x: 110, y: Constants.GAME_HEIGHT },
-    down: { x: 170, y: Constants.GAME_HEIGHT },
-    right: { x: 230, y: Constants.GAME_HEIGHT },
-  }
   public arrows: Arrow[] = []
   public arrowSpawnEvent!: Phaser.Time.TimerEvent
   public currNoteIndex: number = 0
-  public songConfig: SongConfig = Constants.SONG_CONFIGS[2]
+  public songConfig: SongConfig = Constants.getRandomSongConfig()
+  public song!: Phaser.Sound.BaseSound
 
   constructor(game: Game) {
     this.game = game
     this.setupSong(this.songConfig)
+    this.checkLastArrow()
+
+    this.game.input.keyboard.on('keydown', (event) => {
+      if (event.code === 'Space') {
+        this.song.destroy()
+        this.game.scene.restart()
+      }
+    })
+  }
+
+  checkLastArrow() {
+    this.game.time.addEvent({
+      repeat: -1,
+      delay: 1000,
+      callback: () => {
+        const activeArrow = this.arrows.find((a) => a.sprite.active)
+        if (activeArrow === undefined) {
+          this.game.time.delayedCall(3000, () => {
+            this.game.scene.start('gameover')
+          })
+        }
+      },
+    })
   }
 
   setSongConfig(songConfig: SongConfig) {
     this.songConfig = songConfig
   }
-
   setupSong(songConfig: SongConfig) {
+    this.song = this.game.sound.add(songConfig.name)
     let initialDelay = Constants.INITIAL_DELAY
     if (songConfig.initialDelayDiff) {
-      initialDelay = Constants.INITIAL_DELAY - songConfig.initialDelayDiff
+      initialDelay = Constants.INITIAL_DELAY + songConfig.initialDelayDiff
     }
     this.game.time.delayedCall(initialDelay, () => {
-      this.game.sound.play(songConfig.name)
+      this.song.play()
     })
     const arrowDelay = 60000 / songConfig.bpm
     this.arrowSpawnEvent = this.game.time.addEvent({
@@ -46,13 +64,16 @@ export class Spawner {
       },
       repeat: -1,
     })
+    this.song.on('complete', () => {
+      this.arrowSpawnEvent.remove()
+    })
   }
 
   spawnArrow() {
     const randDirection = Constants.getRandomDirection()
     const arrow = new Arrow(this.game, {
       direction: randDirection,
-      position: Spawner.SPAWN_POSITIONS[randDirection],
+      position: Constants.ARROW_SPAWN_POSITIONS[randDirection],
     })
     arrow.setVelocity(0, -100)
     this.arrows.push(arrow)
