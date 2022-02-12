@@ -10,6 +10,7 @@ export class Constants {
   public static GAME_HEIGHT = 600
 
   public static ARROW_DIFF_DIST = 30
+  public static INITIAL_DELAY = 5700
 
   public static getRandomDirection() {
     const randomNum = Math.floor(Math.random() * 4)
@@ -29,10 +30,7 @@ export class Constants {
     {
       name: 'funny-thing',
       bpm: 70,
-    },
-    {
-      name: 'lose-control',
-      bpm: 125,
+      initialDelayDiff: -60,
     },
   ]
 }

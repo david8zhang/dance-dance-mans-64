@@ -5,6 +5,7 @@ import { Arrow } from './Arrow'
 export interface SongConfig {
   bpm: number
   name: string
+  initialDelayDiff?: number
 }
 
 export class Spawner {
@@ -30,7 +31,11 @@ export class Spawner {
   }
 
   setupSong(songConfig: SongConfig) {
-    this.game.time.delayedCall(5700, () => {
+    let initialDelay = Constants.INITIAL_DELAY
+    if (songConfig.initialDelayDiff) {
+      initialDelay = Constants.INITIAL_DELAY - songConfig.initialDelayDiff
+    }
+    this.game.time.delayedCall(initialDelay, () => {
       this.game.sound.play(songConfig.name)
     })
     const arrowDelay = 60000 / songConfig.bpm
