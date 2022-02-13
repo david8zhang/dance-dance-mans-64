@@ -5,6 +5,7 @@ import { Arrow } from './Arrow'
 export interface SongConfig {
   bpm: number
   name: string
+  key: string
   initialDelayDiff?: number
 }
 
@@ -13,11 +14,13 @@ export class Spawner {
   public arrows: Arrow[] = []
   public arrowSpawnEvent!: Phaser.Time.TimerEvent
   public currNoteIndex: number = 0
-  public songConfig: SongConfig = Constants.getRandomSongConfig()
+  public songConfig: SongConfig
   public song!: Phaser.Sound.BaseSound
+  public totalNumNotes: number = 0
 
-  constructor(game: Game) {
+  constructor(game: Game, songConfig: SongConfig) {
     this.game = game
+    this.songConfig = songConfig
     this.setupSong(this.songConfig)
     this.checkLastArrow()
 
@@ -48,7 +51,8 @@ export class Spawner {
     this.songConfig = songConfig
   }
   setupSong(songConfig: SongConfig) {
-    this.song = this.game.sound.add(songConfig.name)
+    this.song = this.game.sound.add(songConfig.key)
+    this.totalNumNotes = Math.floor((songConfig.bpm * this.song.duration) / 60)
     let initialDelay = Constants.INITIAL_DELAY
     if (songConfig.initialDelayDiff) {
       initialDelay = Constants.INITIAL_DELAY + songConfig.initialDelayDiff
@@ -70,13 +74,16 @@ export class Spawner {
   }
 
   spawnArrow() {
-    const randDirection = Constants.getRandomDirection()
-    const arrow = new Arrow(this.game, {
-      direction: randDirection,
-      position: Constants.ARROW_SPAWN_POSITIONS[randDirection],
-    })
-    arrow.setVelocity(0, -100)
-    this.arrows.push(arrow)
+    console.log(this.totalNumNotes)
+    if (this.arrows.length < this.totalNumNotes) {
+      const randDirection = Constants.getRandomDirection()
+      const arrow = new Arrow(this.game, {
+        direction: randDirection,
+        position: Constants.ARROW_SPAWN_POSITIONS[randDirection],
+      })
+      arrow.setVelocity(0, -100)
+      this.arrows.push(arrow)
+    }
   }
 
   getArrows() {

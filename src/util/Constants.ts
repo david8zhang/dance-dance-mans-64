@@ -10,9 +10,15 @@ export enum Direction {
 export class Constants {
   public static GAME_WIDTH = 800
   public static GAME_HEIGHT = 600
+  public static BG_COLOR = '#3498db'
 
-  public static ARROW_DIFF_DIST = 30
+  public static ARROW_DIFF_DIST = 20
   public static INITIAL_DELAY = 5680
+
+  // healthbar
+  public static MAX_HEALTH = 100
+  public static HEALTHBAR_WIDTH = 225
+  public static HEALTHBAR_HEIGHT = 20
 
   public static ARROW_SPAWN_POSITIONS = {
     left: { x: 50, y: Constants.GAME_HEIGHT },

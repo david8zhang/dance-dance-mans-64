@@ -1,23 +1,28 @@
 export const SONG_CONFIGS = [
   {
-    name: 'way-in-my-brain',
+    key: 'way-in-my-brain',
+    name: 'Way In My Brain',
     bpm: 134,
   },
   {
-    name: 'eyewitness2',
+    key: 'eyewitness2',
+    name: 'Eyewitness Theme',
     bpm: 128,
   },
   {
-    name: 'eyewitness',
+    key: 'eyewitness',
+    name: 'Eyewitness Jazz',
     bpm: 129,
   },
   {
-    name: 'funny-thing',
+    key: 'funny-thing',
+    name: 'Funny Thing',
     bpm: 70,
-    initialDelayDiff: -60,
+    initialDelayDiff: 60,
   },
   {
-    name: 'sahara',
+    key: 'sahara',
+    name: 'Sahara',
     initialDelayDiff: 75,
     bpm: 116,
   },
