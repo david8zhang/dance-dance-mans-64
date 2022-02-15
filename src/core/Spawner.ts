@@ -74,7 +74,6 @@ export class Spawner {
   }
 
   spawnArrow() {
-    console.log(this.totalNumNotes)
     if (this.arrows.length < this.totalNumNotes) {
       const randDirection = Constants.getRandomDirection()
       const arrow = new Arrow(this.game, {

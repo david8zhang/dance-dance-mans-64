@@ -19,6 +19,7 @@ export class Constants {
   public static MAX_HEALTH = 100
   public static HEALTHBAR_WIDTH = 225
   public static HEALTHBAR_HEIGHT = 20
+  public static MISSED_HEALTH_DAMAGE = 10
 
   public static ARROW_SPAWN_POSITIONS = {
     left: { x: 50, y: Constants.GAME_HEIGHT },

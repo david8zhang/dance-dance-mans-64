@@ -32,6 +32,10 @@ export default class Game extends Phaser.Scene {
         x: Constants.HEALTHBAR_WIDTH / 2 + 20,
         y: Constants.GAME_HEIGHT - Constants.HEALTHBAR_HEIGHT - 10,
       },
+      onLoseAllHealthHandler: () => {
+        this.sound.stopAll()
+        this.scene.start('gameover')
+      },
     })
   }
 
@@ -48,6 +52,7 @@ export default class Game extends Phaser.Scene {
     )
     this.physics.world.on('worldbounds', (obj) => {
       obj.gameObject.destroy()
+      this.healthBar.decreaseHealth(Constants.MISSED_HEALTH_DAMAGE)
     })
   }
 }

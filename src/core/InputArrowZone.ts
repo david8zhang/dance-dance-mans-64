@@ -1,4 +1,4 @@
-import { Direction } from '~/util/Constants'
+import { Constants, Direction } from '~/util/Constants'
 import Game from '../scenes/Game'
 import { InputArrow } from './InputArrow'
 

@@ -31,11 +31,15 @@ export class InputArrow {
       const arrowSprite = arrow.sprite
       let yDiff = Math.abs(this.sprite.y - arrowSprite.y)
       const xDiff = Math.abs(this.sprite.x - arrowSprite.x)
-      if (yDiff < Constants.ARROW_DIFF_DIST && xDiff == 0) {
+      if (yDiff < Constants.ARROW_DIFF_DIST && xDiff == 0 && arrow.sprite.active) {
         overlappingArrow = arrowSprite
       }
     })
-    if (overlappingArrow) overlappingArrow.destroy()
+    if (overlappingArrow) {
+      overlappingArrow.destroy()
+    } else {
+      this.game.healthBar.decreaseHealth(Constants.MISSED_HEALTH_DAMAGE)
+    }
   }
 
   highlight() {

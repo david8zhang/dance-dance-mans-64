@@ -8,6 +8,7 @@ export interface HealthBarConfig {
     x: number
     y: number
   }
+  onLoseAllHealthHandler?: () => void
 }
 
 export class Healthbar {
@@ -30,6 +31,9 @@ export class Healthbar {
     this.length = healthbarConfig.length
     this.width = healthbarConfig.width
     this.position = healthbarConfig.position
+    if (healthbarConfig.onLoseAllHealthHandler) {
+      this.onLoseAllHealthHandler = healthbarConfig.onLoseAllHealthHandler
+    }
 
     this.bar = new Phaser.GameObjects.Graphics(this.scene)
     this.bar.setDepth(100)
