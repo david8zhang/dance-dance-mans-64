@@ -27,17 +27,21 @@ export class InputArrow {
   removeOverlappingArrow() {
     const arrowsOnScreen = this.game.spawner.getArrows()
     let overlappingArrow
+    let overlappingYDiff
     arrowsOnScreen.forEach((arrow) => {
       const arrowSprite = arrow.sprite
       let yDiff = Math.abs(this.sprite.y - arrowSprite.y)
       const xDiff = Math.abs(this.sprite.x - arrowSprite.x)
       if (yDiff < Constants.ARROW_DIFF_DIST && xDiff == 0 && arrow.sprite.active) {
+        overlappingYDiff = yDiff
         overlappingArrow = arrowSprite
       }
     })
     if (overlappingArrow) {
+      this.game.processInputSuperlative(overlappingYDiff)
       overlappingArrow.destroy()
     } else {
+      this.game.processMiss()
       this.game.healthBar.decreaseHealth(Constants.MISSED_HEALTH_DAMAGE)
     }
   }

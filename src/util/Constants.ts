@@ -7,12 +7,18 @@ export enum Direction {
   RIGHT = 'right',
 }
 
+export enum Superlative {
+  Good = 'Good',
+  Great = 'Great',
+  Perfect = 'Perfect',
+}
+
 export class Constants {
   public static GAME_WIDTH = 800
   public static GAME_HEIGHT = 600
   public static BG_COLOR = '#3498db'
 
-  public static ARROW_DIFF_DIST = 20
+  public static ARROW_DIFF_DIST = 25
   public static INITIAL_DELAY = 5680
 
   // healthbar
@@ -28,6 +34,12 @@ export class Constants {
     right: { x: 230, y: Constants.GAME_HEIGHT },
   }
 
+  public static SUPERLATIVE_SCORE = {
+    [Superlative.Good]: 10,
+    [Superlative.Great]: 15,
+    [Superlative.Perfect]: 20,
+  }
+
   public static getRandomDirection() {
     const randomNum = Math.floor(Math.random() * 4)
     const directions = [Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT]
@@ -37,5 +49,17 @@ export class Constants {
   public static getRandomSongConfig() {
     const randomIndex = Math.floor(Math.random() * SONG_CONFIGS.length)
     return SONG_CONFIGS[randomIndex]
+  }
+
+  public static getSuperlative(yDiff: number) {
+    if (yDiff <= 10) {
+      return Superlative.Perfect
+    }
+    if (yDiff <= 15) {
+      return Superlative.Great
+    }
+    if (yDiff <= 25) {
+      return Superlative.Good
+    }
   }
 }
