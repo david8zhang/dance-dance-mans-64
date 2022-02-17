@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { createBackgroundAnims } from '~/anims/BackgroundAnims'
 import { Healthbar } from '~/core/Health'
 import { InputArrowZone } from '~/core/InputArrowZone'
 import { Score } from '~/core/Score'
@@ -12,6 +13,7 @@ export default class Game extends Phaser.Scene {
   public healthBar!: Healthbar
   public selectedSongConfig!: SongConfig
   public score!: Score
+  public sprite!: Phaser.GameObjects.Sprite
 
   constructor() {
     super('game')
@@ -21,7 +23,17 @@ export default class Game extends Phaser.Scene {
     this.selectedSongConfig = data.songConfig
   }
 
+  setupBackgroundAnim() {
+    this.sprite = this.add.sprite(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, '')
+    console.log(this.sprite.displayWidth, this.sprite.displayHeight)
+    let scaleX = this.cameras.main.width / this.sprite.displayWidth
+    let scaleY = this.cameras.main.height / this.sprite.displayHeight
+    this.sprite.anims.play('freestyle-dance')
+  }
+
   create() {
+    createBackgroundAnims(this.anims)
+    this.setupBackgroundAnim()
     this.sound.pauseOnBlur = false
     this.setupWorldBounds()
     this.spawner = new Spawner(this, this.selectedSongConfig)
@@ -53,7 +65,6 @@ export default class Game extends Phaser.Scene {
   }
 
   processMiss() {
-    console.log('Went here')
     UINumber.createNumber('Miss', this, 300, 40, 'red')
   }
 

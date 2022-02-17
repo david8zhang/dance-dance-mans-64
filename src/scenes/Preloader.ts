@@ -9,6 +9,12 @@ export default class Preloader extends Phaser.Scene {
     this.load.image('arrow-left', 'arrowLeft.png')
     this.load.image('arrow-right', 'arrowRight.png')
 
+    this.load.atlas(
+      'freestyle',
+      'animations/freestyle-dance.png',
+      'animations/freestyle-dance.json'
+    )
+
     // Songs
     this.load.audio('way-in-my-brain', 'songs/way-in-my-brain.mp3')
     this.load.audio('funny-thing', 'songs/funny-thing.mp3')
