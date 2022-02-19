@@ -23,7 +23,7 @@ export class Constants {
 
   // healthbar
   public static MAX_HEALTH = 100
-  public static HEALTHBAR_WIDTH = 225
+  public static HEALTHBAR_WIDTH = 235
   public static HEALTHBAR_HEIGHT = 20
   public static MISSED_HEALTH_DAMAGE = 10
 

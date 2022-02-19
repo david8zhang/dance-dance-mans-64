@@ -25,10 +25,9 @@ export default class Game extends Phaser.Scene {
 
   setupBackgroundAnim() {
     this.sprite = this.add.sprite(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, '')
-    console.log(this.sprite.displayWidth, this.sprite.displayHeight)
-    let scaleX = this.cameras.main.width / this.sprite.displayWidth
-    let scaleY = this.cameras.main.height / this.sprite.displayHeight
     this.sprite.anims.play('freestyle-dance')
+    this.sprite.displayWidth = Constants.GAME_WIDTH
+    this.sprite.displayHeight = Constants.GAME_HEIGHT
   }
 
   create() {
@@ -49,7 +48,9 @@ export default class Game extends Phaser.Scene {
       },
       onLoseAllHealthHandler: () => {
         this.sound.stopAll()
-        this.scene.start('gameover')
+        this.scene.start('gameover', {
+          score: this.score.score,
+        })
       },
     })
     this.score = new Score(this)

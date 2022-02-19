@@ -19,9 +19,10 @@ export class InputArrow {
     this.direction = config.direction
 
     const { x, y } = config.position
-    this.sprite = this.game.physics.add.sprite(x, y, `arrow-${config.direction}`)
-    this.game.physics.world.enableBody(this.sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
-    this.sprite.body.setSize(this.sprite.width * 0.1, this.sprite.height * 0.1)
+    this.sprite = this.game.physics.add
+      .sprite(x, y, `arrow-${config.direction}`)
+      .setTintFill(0xffffff)
+    console.log(this.sprite.displayWidth)
   }
 
   removeOverlappingArrow() {
@@ -51,6 +52,6 @@ export class InputArrow {
   }
 
   dehighlight() {
-    this.sprite.setTintFill(0x000000)
+    this.sprite.setTintFill(0xffffff)
   }
 }

@@ -8,6 +8,9 @@ export class InputArrowZone {
 
   constructor(game: Game) {
     this.game = game
+    this.game.add
+      .rectangle(100, Constants.GAME_HEIGHT / 2, 350, Constants.GAME_HEIGHT)
+      .setFillStyle(0x555555, 0.5)
     this.createArrows()
     this.setupKeyboardListeners()
   }
