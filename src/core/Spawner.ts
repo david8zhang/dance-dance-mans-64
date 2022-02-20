@@ -7,6 +7,8 @@ export interface SongConfig {
   name: string
   key: string
   initialDelayDiff?: number
+  bgAnim?: string
+  isVideo?: boolean
 }
 
 export class Spawner {
@@ -40,7 +42,9 @@ export class Spawner {
         const activeArrow = this.arrows.find((a) => a.sprite.active)
         if (activeArrow === undefined) {
           this.game.time.delayedCall(3000, () => {
-            this.game.scene.start('gameover')
+            this.game.scene.start('gameover', {
+              score: this.game.score.score,
+            })
           })
         }
       },
@@ -50,15 +54,26 @@ export class Spawner {
   setSongConfig(songConfig: SongConfig) {
     this.songConfig = songConfig
   }
-  setupSong(songConfig: SongConfig) {
-    this.song = this.game.sound.add(songConfig.key)
-    this.totalNumNotes = Math.floor((songConfig.bpm * this.song.duration) / 60)
+
+  setupVideo(songConfig: SongConfig) {
+    const video = this.game.add.video(
+      Constants.GAME_WIDTH / 2,
+      Constants.GAME_HEIGHT / 2,
+      songConfig.key
+    )
+
+    video.displayWidth = 0
+    video.displayHeight = 0
+
+    this.totalNumNotes = Math.floor((songConfig.bpm * video.video.duration) / 60)
     let initialDelay = Constants.INITIAL_DELAY
     if (songConfig.initialDelayDiff) {
       initialDelay = Constants.INITIAL_DELAY + songConfig.initialDelayDiff
     }
     this.game.time.delayedCall(initialDelay, () => {
-      this.song.play()
+      video.displayWidth = Constants.GAME_WIDTH
+      video.displayHeight = Constants.GAME_HEIGHT
+      video.play(false, 0)
     })
     const arrowDelay = 60000 / songConfig.bpm
     this.arrowSpawnEvent = this.game.time.addEvent({
@@ -68,9 +83,36 @@ export class Spawner {
       },
       repeat: -1,
     })
-    this.song.on('complete', () => {
+    video.on('complete', () => {
       this.arrowSpawnEvent.remove()
     })
+  }
+
+  setupSong(songConfig: SongConfig) {
+    if (songConfig.isVideo) {
+      this.setupVideo(songConfig)
+    } else {
+      this.song = this.game.sound.add(songConfig.key)
+      this.totalNumNotes = Math.floor((songConfig.bpm * this.song.duration) / 60)
+      let initialDelay = Constants.INITIAL_DELAY
+      if (songConfig.initialDelayDiff) {
+        initialDelay = Constants.INITIAL_DELAY + songConfig.initialDelayDiff
+      }
+      this.game.time.delayedCall(initialDelay, () => {
+        this.song.play()
+      })
+      const arrowDelay = 60000 / songConfig.bpm
+      this.arrowSpawnEvent = this.game.time.addEvent({
+        delay: arrowDelay,
+        callback: () => {
+          this.spawnArrow()
+        },
+        repeat: -1,
+      })
+      this.song.on('complete', () => {
+        this.arrowSpawnEvent.remove()
+      })
+    }
   }
 
   spawnArrow() {

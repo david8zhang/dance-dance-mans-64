@@ -26,4 +26,34 @@ export const SONG_CONFIGS = [
     initialDelayDiff: 75,
     bpm: 116,
   },
+  {
+    key: 'rather-be',
+    name: 'Rather Be',
+    bpm: 121,
+    bgAnim: 'winnie-the-pooh',
+  },
+  {
+    key: 'howard',
+    name: 'Howard',
+    bpm: 136,
+    isVideo: true,
+  },
+  {
+    key: 'microsoft',
+    name: 'Pure Imagination',
+    bpm: 112,
+    isVideo: true,
+  },
+  {
+    key: 'bioware',
+    name: 'Only Human',
+    bpm: 80,
+    isVideo: true,
+  },
+  {
+    key: 'bozo',
+    name: 'Hello Bozo',
+    bpm: 102,
+    isVideo: true,
+  },
 ]

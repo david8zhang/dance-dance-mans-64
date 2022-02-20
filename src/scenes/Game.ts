@@ -24,8 +24,12 @@ export default class Game extends Phaser.Scene {
   }
 
   setupBackgroundAnim() {
+    if (this.selectedSongConfig.isVideo) {
+      return
+    }
     this.sprite = this.add.sprite(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, '')
-    this.sprite.anims.play('freestyle-dance')
+    const bgAnimation = this.selectedSongConfig.bgAnim
+    this.sprite.anims.play(bgAnimation ? bgAnimation : 'freestyle-dance')
     this.sprite.displayWidth = Constants.GAME_WIDTH
     this.sprite.displayHeight = Constants.GAME_HEIGHT
   }

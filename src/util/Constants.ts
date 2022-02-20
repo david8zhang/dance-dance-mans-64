@@ -16,7 +16,7 @@ export enum Superlative {
 export class Constants {
   public static GAME_WIDTH = 800
   public static GAME_HEIGHT = 600
-  public static BG_COLOR = '#3498db'
+  public static BG_COLOR = '#000000'
 
   public static ARROW_DIFF_DIST = 25
   public static INITIAL_DELAY = 5680

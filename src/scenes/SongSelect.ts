@@ -9,6 +9,7 @@ export class SongSelect extends Phaser.Scene {
   public domElementsContainer!: Phaser.GameObjects.Container
   public selectedSong: SongConfig | null = null
   public selectedSongText!: HTMLElement
+  public video!: Phaser.GameObjects.Video
   public buttonDom!: Phaser.GameObjects.DOMElement
 
   constructor() {
@@ -18,18 +19,27 @@ export class SongSelect extends Phaser.Scene {
   selectSong(songName: string) {
     const song = SONG_CONFIGS.find((s) => s.name === songName)
     this.sound.stopAll()
+    if (this.video) this.video.stop()
     if (song) {
       this.selectedSong = song
-      const songKey = this.sound.add(this.selectedSong.key)
-      this.selectedSongText.innerText = this.selectedSong.name
-      const marker: Phaser.Types.Sound.SoundMarker = {
-        name: 'offset',
-        start: songKey.duration / 3,
-        config: {
-          loop: true,
-        },
+
+      if (!song.isVideo) {
+        const songKey = this.sound.add(this.selectedSong.key)
+        this.selectedSongText.innerText = this.selectedSong.name
+        const marker: Phaser.Types.Sound.SoundMarker = {
+          name: 'offset',
+          start: songKey.duration / 3,
+          config: {
+            loop: true,
+          },
+        }
+        this.sound.play(this.selectedSong.key, marker)
+      } else {
+        this.video = this.add.video(0, 0, this.selectedSong.key)
+        this.video.displayHeight = 0
+        this.video.displayWidth = 0
+        this.video.play(true, this.video.video.duration / 3)
       }
-      this.sound.play(this.selectedSong.key, marker)
       this.buttonDom.setVisible(true)
     }
   }
