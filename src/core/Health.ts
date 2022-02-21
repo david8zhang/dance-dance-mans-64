@@ -49,11 +49,16 @@ export class Healthbar {
     this.onHealthDecreased.push(handler)
   }
 
+  increaseHealth(amount: number): void {
+    this.currHealth = Math.min(this.maxHealth, this.currHealth + amount)
+    this.draw()
+  }
+
   decreaseHealth(amount: number): void {
     this.currHealth -= amount
     this.onHealthDecreased.forEach((handler) => handler())
     this.draw()
-    if (this.currHealth == 0) {
+    if (this.currHealth <= 0) {
       this.onLoseAllHealthHandler()
     }
   }

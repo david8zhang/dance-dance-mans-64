@@ -40,6 +40,7 @@ export class InputArrow {
     })
     if (overlappingArrow) {
       this.game.processInputSuperlative(overlappingYDiff)
+      this.game.healthBar.increaseHealth(Constants.REGAIN_HEALTH_AMOUNT)
       overlappingArrow.destroy()
     } else {
       this.game.processMiss()

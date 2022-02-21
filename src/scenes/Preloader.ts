@@ -32,9 +32,10 @@ export default class Preloader extends Phaser.Scene {
     this.load.video('microsoft', 'songs/microsoft.mp4')
     this.load.video('bioware', 'songs/bioware.mp4')
     this.load.video('bozo', 'songs/bozo.mp4')
+    this.load.video('dance-bg', 'songs/background.mp4')
   }
 
   create() {
-    this.scene.start('songselect')
+    this.scene.start('start')
   }
 }

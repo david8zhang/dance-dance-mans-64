@@ -8,11 +8,16 @@
       div::-webkit-scrollbar {
         display: none;
       }
+      @font-face {
+        font-family: 'Graffiti';
+        src: url('../public/fonts/GRAFFITI.ttf');
+      }
     </style>
     <title>DDM64</title>
     <link rel="icon" type="image/x-icon" href="../public/favicon.png" />
   </head>
   <body id="phaser">
+    <div style="font-family: Graffiti; position: absolute; visibility: hidden">.</div>
     <script src="main.ts"></script>
     <script src="jsx-dom-shim.ts"></script>
   </body>

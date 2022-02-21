@@ -18,7 +18,8 @@ export class Spawner {
   public currNoteIndex: number = 0
   public songConfig: SongConfig
   public song!: Phaser.Sound.BaseSound
-  public totalNumNotes: number = 0
+  public totalNumBeats: number = 0
+  public numBeats: number = 0
 
   constructor(game: Game, songConfig: SongConfig) {
     this.game = game
@@ -65,7 +66,7 @@ export class Spawner {
     video.displayWidth = 0
     video.displayHeight = 0
 
-    this.totalNumNotes = Math.floor((songConfig.bpm * video.video.duration) / 60)
+    this.totalNumBeats = Math.floor((songConfig.bpm * video.video.duration) / 60)
     let initialDelay = Constants.INITIAL_DELAY
     if (songConfig.initialDelayDiff) {
       initialDelay = Constants.INITIAL_DELAY + songConfig.initialDelayDiff
@@ -79,7 +80,7 @@ export class Spawner {
     this.arrowSpawnEvent = this.game.time.addEvent({
       delay: arrowDelay,
       callback: () => {
-        this.spawnArrow()
+        this.handleSpawnEvent()
       },
       repeat: -1,
     })
@@ -93,7 +94,7 @@ export class Spawner {
       this.setupVideo(songConfig)
     } else {
       this.song = this.game.sound.add(songConfig.key)
-      this.totalNumNotes = Math.floor((songConfig.bpm * this.song.duration) / 60)
+      this.totalNumBeats = Math.floor((songConfig.bpm * this.song.duration) / 60)
       let initialDelay = Constants.INITIAL_DELAY
       if (songConfig.initialDelayDiff) {
         initialDelay = Constants.INITIAL_DELAY + songConfig.initialDelayDiff
@@ -105,7 +106,7 @@ export class Spawner {
       this.arrowSpawnEvent = this.game.time.addEvent({
         delay: arrowDelay,
         callback: () => {
-          this.spawnArrow()
+          this.handleSpawnEvent()
         },
         repeat: -1,
       })
@@ -115,14 +116,39 @@ export class Spawner {
     }
   }
 
+  handleSpawnEvent() {
+    const isDoubleNote = Constants.getRandomNumber(1, 100) <= Constants.DOUBLE_NOTE_CHANCE
+    if (isDoubleNote) {
+      this.spawnDoubleArrow()
+    } else {
+      this.spawnArrow()
+    }
+  }
+
+  spawnDoubleArrow() {
+    if (this.numBeats < this.totalNumBeats) {
+      const randDirections = Constants.getRandomDoubleDirection()
+      randDirections.forEach((dir) => {
+        const arrow = new Arrow(this.game, {
+          direction: dir,
+          position: Constants.ARROW_SPAWN_POSITIONS[dir],
+        })
+        arrow.setVelocity(0, -100)
+        this.arrows.push(arrow)
+      })
+      this.numBeats++
+    }
+  }
+
   spawnArrow() {
-    if (this.arrows.length < this.totalNumNotes) {
+    if (this.numBeats < this.totalNumBeats) {
       const randDirection = Constants.getRandomDirection()
       const arrow = new Arrow(this.game, {
         direction: randDirection,
         position: Constants.ARROW_SPAWN_POSITIONS[randDirection],
       })
       arrow.setVelocity(0, -100)
+      this.numBeats++
       this.arrows.push(arrow)
     }
   }

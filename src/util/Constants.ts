@@ -1,4 +1,5 @@
 import { SONG_CONFIGS } from './SongConfigs'
+import { shuffle } from 'lodash'
 
 export enum Direction {
   UP = 'up',
@@ -26,6 +27,10 @@ export class Constants {
   public static HEALTHBAR_WIDTH = 235
   public static HEALTHBAR_HEIGHT = 20
   public static MISSED_HEALTH_DAMAGE = 10
+  public static REGAIN_HEALTH_AMOUNT = 5
+
+  // double note chance
+  public static DOUBLE_NOTE_CHANCE = 10
 
   public static ARROW_SPAWN_POSITIONS = {
     left: { x: 50, y: Constants.GAME_HEIGHT },
@@ -38,6 +43,24 @@ export class Constants {
     [Superlative.Good]: 10,
     [Superlative.Great]: 15,
     [Superlative.Perfect]: 20,
+  }
+
+  static getRandomNumber(min: number, max: number, isFloat: boolean = false) {
+    if (isFloat) {
+      return Math.random() * (max - min) + min
+    }
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+
+  public static getRandomDoubleDirection() {
+    const directionPairings = [
+      [Direction.LEFT, Direction.RIGHT],
+      [Direction.UP, Direction.RIGHT],
+      [Direction.UP, Direction.LEFT],
+      [Direction.DOWN, Direction.LEFT],
+      [Direction.DOWN, Direction.RIGHT],
+    ]
+    return directionPairings[Math.floor(Math.random() * directionPairings.length)]
   }
 
   public static getRandomDirection() {

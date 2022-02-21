@@ -22,7 +22,7 @@ export class SongSelect extends Phaser.Scene {
     if (this.video) this.video.stop()
     if (song) {
       this.selectedSong = song
-
+      this.selectedSongText.innerText = this.selectedSong.name
       if (!song.isVideo) {
         const songKey = this.sound.add(this.selectedSong.key)
         this.selectedSongText.innerText = this.selectedSong.name
@@ -75,6 +75,11 @@ export class SongSelect extends Phaser.Scene {
       this.selectedSongText.clientWidth / 2 + 20,
       this.selectedSongText.clientHeight / 2 + 10
     )
+
+    const video = this.add.video(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, 'dance-bg')
+    video.displayWidth = Constants.GAME_WIDTH
+    video.displayHeight = Constants.GAME_HEIGHT
+    video.play(true)
 
     // Song list
     const songList = ScrollList(SONG_CONFIGS) as HTMLElement

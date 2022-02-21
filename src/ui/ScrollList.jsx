@@ -4,7 +4,9 @@ export const ScrollList = (data) => {
   return (
     <div
       style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         overflowY: 'scroll',
+        padding: '20px',
         height: `${Constants.GAME_HEIGHT}px`,
         scrollbarWidth: 'none',
         color: 'white',
