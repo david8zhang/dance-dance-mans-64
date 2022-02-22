@@ -49,6 +49,11 @@ export class SongSelect extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(Constants.BG_COLOR)
     this.domElementsContainer = this.add.container(0, 0)
 
+    const sprite = this.add.sprite(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, 'bg-disco')
+    sprite.displayHeight = Constants.GAME_HEIGHT
+    sprite.displayWidth = Constants.GAME_WIDTH
+    sprite.anims.play('bg-disco')
+
     // Start button
     const startButton = Button('Play')
     this.buttonDom = this.add
@@ -75,11 +80,6 @@ export class SongSelect extends Phaser.Scene {
       this.selectedSongText.clientWidth / 2 + 20,
       this.selectedSongText.clientHeight / 2 + 10
     )
-
-    const video = this.add.video(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, 'dance-bg')
-    video.displayWidth = Constants.GAME_WIDTH
-    video.displayHeight = Constants.GAME_HEIGHT
-    video.play(true)
 
     // Song list
     const songList = ScrollList(SONG_CONFIGS) as HTMLElement

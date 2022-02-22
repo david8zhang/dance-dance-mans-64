@@ -39,12 +39,6 @@ export const SONG_CONFIGS = [
     isVideo: true,
   },
   {
-    key: 'microsoft',
-    name: 'Pure Imagination',
-    bpm: 112,
-    isVideo: true,
-  },
-  {
     key: 'bioware',
     name: 'Only Human',
     bpm: 80,

@@ -20,6 +20,7 @@ export class Spawner {
   public song!: Phaser.Sound.BaseSound
   public totalNumBeats: number = 0
   public numBeats: number = 0
+  public sprite!: Phaser.GameObjects.Sprite
 
   constructor(game: Game, songConfig: SongConfig) {
     this.game = game

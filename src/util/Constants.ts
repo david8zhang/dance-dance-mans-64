@@ -1,5 +1,87 @@
 import { SONG_CONFIGS } from './SongConfigs'
-import { shuffle } from 'lodash'
+
+export const ASSETS = [
+  {
+    type: 'image',
+    key: 'arrow-down',
+    path: ['arrowDown.png'],
+  },
+  {
+    type: 'image',
+    key: 'arrow-up',
+    path: ['arrowUp.png'],
+  },
+  {
+    type: 'image',
+    key: 'arrow-left',
+    path: ['arrowLeft.png'],
+  },
+  {
+    type: 'image',
+    key: 'arrow-right',
+    path: ['arrowRight.png'],
+  },
+  {
+    type: 'atlas',
+    key: 'freestyle-dance',
+    path: ['animations/freestyle-dance.png', 'animations/freestyle-dance.json'],
+  },
+  {
+    type: 'atlas',
+    key: 'winnie-the-pooh',
+    path: ['animations/winnie-the-pooh.png', 'animations/winnie-the-pooh.json'],
+  },
+  {
+    type: 'atlas',
+    key: 'bg-disco',
+    path: ['animations/bg-disco.png', 'animations/bg-disco.json'],
+  },
+  {
+    type: 'audio',
+    key: 'way-in-my-brain',
+    path: ['songs/way-in-my-brain.mp3'],
+  },
+  {
+    type: 'audio',
+    key: 'funny-thing',
+    path: ['songs/funny-thing.mp3'],
+  },
+  {
+    type: 'audio',
+    key: 'sahara',
+    path: ['songs/sahara.mp3'],
+  },
+  {
+    type: 'audio',
+    key: 'eyewitness',
+    path: ['songs/eyewitness.mp3'],
+  },
+  {
+    type: 'audio',
+    key: 'eyewitness2',
+    path: ['songs/eyewitness2.mp3'],
+  },
+  {
+    type: 'audio',
+    key: 'rather-be',
+    path: ['songs/rather-be.mp3'],
+  },
+  {
+    type: 'video',
+    key: 'howard',
+    path: ['songs/howard.mp4'],
+  },
+  {
+    type: 'video',
+    key: 'bioware',
+    path: ['songs/bioware.mp4'],
+  },
+  {
+    type: 'video',
+    key: 'bozo',
+    path: ['songs/bozo.mp4'],
+  },
+]
 
 export enum Direction {
   UP = 'up',

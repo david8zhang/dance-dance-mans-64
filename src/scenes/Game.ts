@@ -30,8 +30,8 @@ export default class Game extends Phaser.Scene {
     this.sprite = this.add.sprite(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, '')
     const bgAnimation = this.selectedSongConfig.bgAnim
     this.sprite.anims.play(bgAnimation ? bgAnimation : 'freestyle-dance')
-    this.sprite.displayWidth = Constants.GAME_WIDTH
     this.sprite.displayHeight = Constants.GAME_HEIGHT
+    this.sprite.displayWidth = Constants.GAME_WIDTH
   }
 
   create() {
