@@ -1,5 +1,6 @@
 import Game from '~/scenes/Game'
 import { Constants, Direction } from '~/util/Constants'
+import { Arrow } from './Arrow'
 
 export interface InputArrowConfig {
   position: {
@@ -35,17 +36,36 @@ export class InputArrow {
       const xDiff = Math.abs(this.sprite.x - arrowSprite.x)
       if (yDiff < Constants.ARROW_DIFF_DIST && xDiff == 0 && arrow.sprite.active) {
         overlappingYDiff = yDiff
-        overlappingArrow = arrowSprite
+        overlappingArrow = arrow
       }
     })
     if (overlappingArrow) {
       this.game.processInputSuperlative(overlappingYDiff)
       this.game.healthBar.increaseHealth(Constants.REGAIN_HEALTH_AMOUNT)
-      overlappingArrow.destroy()
+      this.removeArrow(overlappingArrow)
     } else {
       this.game.processMiss()
       this.game.healthBar.decreaseHealth(Constants.MISSED_HEALTH_DAMAGE)
     }
+  }
+
+  removeArrow(overlappingArrow: Arrow) {
+    overlappingArrow.setVelocity(0, 0)
+    this.game.tweens.add({
+      targets: [overlappingArrow.sprite],
+      alpha: { from: 1, to: 0 },
+      ease: 'Linear',
+      duration: 100,
+    })
+    this.game.tweens.add({
+      targets: [overlappingArrow.sprite],
+      scale: { from: 1, to: 2 },
+      ease: 'Linear',
+      duration: 100,
+    })
+    this.game.time.delayedCall(150, () => {
+      overlappingArrow.sprite.destroy()
+    })
   }
 
   highlight() {

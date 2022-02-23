@@ -69,17 +69,17 @@ export const ASSETS = [
   {
     type: 'video',
     key: 'howard',
-    path: ['songs/howard.mp4'],
+    path: ['songs/howard.webm'],
   },
   {
     type: 'video',
     key: 'bioware',
-    path: ['songs/bioware.mp4'],
+    path: ['songs/bioware.webm'],
   },
   {
     type: 'video',
     key: 'bozo',
-    path: ['songs/bozo.mp4'],
+    path: ['songs/bozo.webm'],
   },
 ]
 
