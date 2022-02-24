@@ -44,8 +44,10 @@ export class Spawner {
         const activeArrow = this.arrows.find((a) => a.sprite.active)
         if (activeArrow === undefined) {
           this.game.time.delayedCall(3000, () => {
+            this.game.score.didFinish = true
             this.game.scene.start('gameover', {
-              score: this.game.score.score,
+              rank: this.game.score.getRank(),
+              didFinish: this.game.score.didFinish,
             })
           })
         }
@@ -137,6 +139,7 @@ export class Spawner {
         arrow.setVelocity(0, -100)
         this.arrows.push(arrow)
       })
+      this.game.score.totalNotes += 2
       this.numBeats++
     }
   }
@@ -151,6 +154,7 @@ export class Spawner {
       arrow.setVelocity(0, -100)
       this.numBeats++
       this.arrows.push(arrow)
+      this.game.score.totalNotes += 1
     }
   }
 

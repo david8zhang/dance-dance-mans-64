@@ -72,6 +72,7 @@ export class SongSelect extends Phaser.Scene {
     // Selected song
     this.selectedSongText = Text('Select a song', {
       fontSize: 30,
+      fontFamily: 'Graffiti',
       color: 'white',
       margin: '0px',
     }) as HTMLElement

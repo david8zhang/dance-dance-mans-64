@@ -2,6 +2,7 @@ export class UINumber {
   static createNumber(str: string, scene: Phaser.Scene, x: number, y: number, color?: string) {
     const text = scene.add
       .text(x, y, str, {
+        fontFamily: 'Graffiti',
         fontSize: '20px',
         color: color || 'red',
       })

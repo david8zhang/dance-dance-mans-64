@@ -10,6 +10,7 @@ export const ScrollList = (data) => {
         height: `${Constants.GAME_HEIGHT}px`,
         scrollbarWidth: 'none',
         color: 'white',
+        fontFamily: 'Graffiti',
       }}
     >
       {data.map((d) => {

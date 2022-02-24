@@ -21,7 +21,7 @@ export default class Preloader extends Phaser.Scene {
         break
       }
       case 'video': {
-        this.load.video(assetConfig.key, assetConfig.path[0])
+        this.load.video(assetConfig.key, assetConfig.path[0], 'canplay', true)
         break
       }
       case 'audio': {
@@ -53,6 +53,7 @@ export default class Preloader extends Phaser.Scene {
 
     this.load.on('filecomplete', (e) => {
       this.loaded.push(e)
+      console.log(e)
       this.loadingText.setText(
         `Loading: ${Math.round((this.loaded.length / ASSETS.length) * 100)}%`
       )

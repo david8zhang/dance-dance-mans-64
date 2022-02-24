@@ -53,7 +53,8 @@ export default class Game extends Phaser.Scene {
       onLoseAllHealthHandler: () => {
         this.sound.stopAll()
         this.scene.start('gameover', {
-          score: this.score.score,
+          rank: this.score.getRank(),
+          didFinish: this.score.didFinish,
         })
       },
     })

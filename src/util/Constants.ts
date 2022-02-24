@@ -96,6 +96,15 @@ export enum Superlative {
   Perfect = 'Perfect',
 }
 
+export enum Rank {
+  S = 'S',
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  F = 'F',
+}
+
 export class Constants {
   public static GAME_WIDTH = 800
   public static GAME_HEIGHT = 600
