@@ -27,11 +27,6 @@ export default class Start extends Phaser.Scene {
     bgSprite.displayWidth = Constants.GAME_WIDTH
     bgSprite.anims.play('bg-disco')
 
-    // const video = this.add.video(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2, 'dance-bg')
-    // video.displayWidth = Constants.GAME_WIDTH
-    // video.displayHeight = Constants.GAME_HEIGHT
-    // video.play(true)
-
     text.setPosition(
       Constants.GAME_WIDTH / 2 - text.displayWidth / 2,
       Constants.GAME_HEIGHT / 2 - text.displayHeight / 2 - 75

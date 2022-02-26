@@ -37,7 +37,7 @@ export class GameOver extends Phaser.Scene {
       const selectedSongDom = this.add.dom(0, 0, scoreText)
       selectedSongDom.setPosition(
         Constants.GAME_WIDTH / 2,
-        Constants.GAME_HEIGHT / 2 - scoreText.clientHeight / 2 - 50
+        Constants.GAME_HEIGHT / 2 - scoreText.clientHeight / 2 - 25
       )
     } else {
       // Failure Text
@@ -55,7 +55,7 @@ export class GameOver extends Phaser.Scene {
     }
 
     const text1 = this.add.text(0, 0, 'Press Space to Restart', { fontFamily: 'Graffiti' })
-    const text2 = this.add.text(0, 0, 'Press Escape to go back to song select', {
+    const text2 = this.add.text(0, 0, 'Press Q to go back to song select', {
       fontFamily: 'Graffiti',
     })
     text1.setPosition(
@@ -70,7 +70,7 @@ export class GameOver extends Phaser.Scene {
       if (event.code === 'Space') {
         this.scene.start('game')
       }
-      if (event.code === 'Escape') {
+      if (event.code === 'KeyQ') {
         this.scene.start('songselect')
       }
     })
